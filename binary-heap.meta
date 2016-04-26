@@ -1,0 +1,27 @@
+;;;; -*- Hen -*-
+
+((egg "binary-heap.egg") ; This should never change
+
+ ; List here all the files that should be bundled as part of your egg.  
+
+ (files "binary-heap.setup" "binary-heap.scm" "binary-heap.meta" "tests" )
+
+ ; Your egg's license:
+
+ (license "GPL-3")
+
+ ; Pick one from the list of categories (see below) for your egg and
+ ; enter it here.
+
+ (category data)
+
+ ; A list of eggs binary-heap depends on.
+
+ (needs datatype matchable)
+
+ (test-depends test)
+
+ (author "Ivan Raikov")
+
+ (synopsis "Binary heap."))
+

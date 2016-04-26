@@ -1,0 +1,21 @@
+;;;; -*- Hen -*-
+
+(define (dynld-name fn)		
+  (make-pathname #f fn ##sys#load-dynamic-extension))	
+
+(compile -O3 -s binary-heap.scm -j binary-heap)
+(compile -O3 -s binary-heap.import.scm)
+
+(install-extension
+
+  ; Name of your extension:
+  'binary-heap
+
+  ; Files to install for your extension:
+  `(,(dynld-name "binary-heap") ,(dynld-name "binary-heap.import") )
+
+  ; Assoc list with properties for your extension:
+  `((version 2.0)
+    ))
+
+
