@@ -1,0 +1,8 @@
+;; -*- scheme -*-
+(repo git "git://github.com/iraikov/chicken-binary-heap.git")
+(uri targz "https://github.com/iraikov/chicken-binary-heap/tarball/{egg-release}")
+(uri files-list "http://code.call-cc.org/files-list?egg={egg-name};egg-release={egg-release};chicken-release={chicken-release}" old-uri)
+
+(release "2.0")
+(release "1.2" old-uri)
+
