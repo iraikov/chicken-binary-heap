@@ -3,6 +3,6 @@
  (synopsis "Binary heap.")
  (license "GPL-3")
  (category data)
- (dependencies datatype matchable)
+ (dependencies srfi-1 datatype matchable)
  (test-dependencies test)
  (components (extension binary-heap)))
