@@ -34,10 +34,10 @@
    heap-delete-max
    )
 
-  (import scheme chicken data-structures) 
-  (require-library srfi-1)
-  (import (only srfi-1 fold first second third fourth fifth sixth)) 
-  (require-extension datatype matchable)
+  (import scheme (chicken base) (chicken string))
+  (import srfi-1)
+  (import-for-syntax (only srfi-1 fold first second third fourth fifth sixth)) 
+  (import datatype matchable)
 
 
 ;;
@@ -96,20 +96,21 @@
 ;;
 ;; This macro was borrowed from treap.scm by Oleg Kiselyov
 ;;
-(define-syntax dispatch-on-key 
-  (lambda (x r c)
-    (let ((key-compare (second x))
-          (key (third x)) (node-key (fourth x))
-	  (on-greater (fifth x)) (on-less (sixth x)))
-      (let ((%let   (r 'let))
-	    (%cond  (r 'cond))
-	    (%else  (r 'else))
-	    (%positive?  (r 'positive?))
-	    (result      (r 'result)))
-	`(,%let ((,result (key-compare ,key ,node-key )))
-		(,%cond
-		 ((,%positive? ,result) ,on-greater)
-		 (,%else                ,on-less)))))))
+(define-syntax dispatch-on-key
+  (er-macro-transformer
+   (lambda (x r c)
+     (let ((key-compare (second x))
+           (key (third x)) (node-key (fourth x))
+           (on-greater (fifth x)) (on-less (sixth x)))
+       (let ((%let   (r 'let))
+             (%cond  (r 'cond))
+             (%else  (r 'else))
+             (%positive?  (r 'positive?))
+             (result      (r 'result)))
+         `(,%let ((,result (key-compare ,key ,node-key )))
+                 (,%cond
+                  ((,%positive? ,result) ,on-greater)
+                  (,%else                ,on-less))))))))
 
 
 (define (insert key value root key-compare) 
@@ -173,7 +174,7 @@
                                    (op l mr (recur r)))))))
     ))
 
-(define (delete root key-compare)
+(define (heap-delete root key-compare)
   (match root
          (($ tree 'Empty)  #f)
          (($ tree 'Empty ($ tree 'Empty) x ($ tree 'Empty))
@@ -232,9 +233,9 @@
 
 	  
 (define (heap-delete-max h)  
-  (let ((new-root (delete (binary-heap-root h) (binary-heap-key-compare h))))
+  (let ((new-root (heap-delete (binary-heap-root h) (binary-heap-key-compare h))))
     (cons-binary-heap new-root (- (binary-heap-size h) 1)
                       (binary-heap-key-compare h))))
 
 )
-	
+

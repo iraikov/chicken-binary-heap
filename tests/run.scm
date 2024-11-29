@@ -1,5 +1,4 @@
-
-(use srfi-1 binary-heap test)
+(import srfi-1 binary-heap test)
 
 (define (key< x y) (- x y))
 

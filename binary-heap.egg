@@ -1,0 +1,8 @@
+;; -*- scheme -*-
+((author "Ivan Raikov")
+ (synopsis "Binary heap.")
+ (license "GPL-3")
+ (category data)
+ (dependencies datatype matchable)
+ (test-dependencies test)
+ (components (extension binary-heap)))
